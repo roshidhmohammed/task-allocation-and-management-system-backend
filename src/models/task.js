@@ -94,7 +94,6 @@ const taskSchema = new mongoose.Schema(
 
 taskSchema.index({
     assignedUser:1,
-    // requiredSkills:1,
     status:1,
     createdAt:-1,
     priority:1
@@ -104,11 +103,6 @@ taskSchema.index({
     title:"text"
 })
 
-// taskSchema.set("toJSON", {
-//   transform: function (doc, ret) {
-//     (delete ret.password, delete ret.__v);
-//   },
-// });
 
 const Task = mongoose.model("Task", taskSchema);
 export default Task;

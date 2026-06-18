@@ -36,46 +36,16 @@ const userSchema = new mongoose.Schema(
     },
     skills: {
       type: [String],
-      default: [],
-    //   validate: {
-    //     validator(value) {
-    //       if (value === null) return true;
-    //       return (
-    //         Array.isArray(value) &&
-    //         value.length > 0 &&
-    //         value.every(
-    //           (skill) => typeof skill === "string" && skill.trim().length >= 2,
-    //         )
-    //       );
-    //     },
-    //     message: "Skills must be a non-empty and valid",
-    //   },
+      default: []
     },
     avaialableWorkingHours: {
       type: Number,
       default:0,
       min: [0, "Working hours must be greater than or equal to 0"],
-      max: [24, "Working hours cannot exceed 24"],
-    //   validate: {
-    //     validator: Number.isInteger,
-    //     message: "Please enter the valid hours",
-    //   },
+      max: [24, "Working hours cannot exceed 24"]
     },
     workingDays: {
-      type: [String],
-    //   validate: {
-    //     validator(value) {
-    //       if (value === null) return true;
-    //       const validDays = ["mon", "tue", "wed", "thu", "fri"];
-
-    //       return (
-    //         Array.isArray(value) &&
-    //         value.length > 0 &&
-    //         value.every((day) => validDays.includes(day.toLowerCase()))
-    //       );
-    //     },
-    //     message: "Working days must be mon, tue, wed, thu, fri",
-    //   },
+      type: [String]
     },
   },
   { timestamps: true },
