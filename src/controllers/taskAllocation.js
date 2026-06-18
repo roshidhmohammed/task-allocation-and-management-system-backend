@@ -134,7 +134,6 @@ export const getAllAllocatedTasks = async (req, res, next) => {
       },
     }).sort({createdAt:-1})
 
-    console.log(allocatedTasks)
     res.status(200).json({
       success: true,
       message: "allocated task fetched",
@@ -231,7 +230,7 @@ const taskAllocations = await TaskAllocation.aggregate([
 
     res.status(200).json({
       success: true,
-      message: "not allocated task fetched",
+      message: "task allocations fetched",
       data: taskAllocations,
     });
   } catch (error) {
