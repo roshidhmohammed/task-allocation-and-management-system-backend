@@ -84,18 +84,19 @@ npm run dev
    - It will directly jump to the matching field documents instead of scanning the entire docs.
 
 1. User Model:
-   - skills
-   - avaialableWorkingHours
+   - skills - while assigning a user to a task, it is needed to match the user skills with task's required skills
+   - avaialableWorkingHours - While assigning user to a task, for checking the availability
 
 2. Task Model:
    - status - filtering the task documents by status
-   - createdAt - for sorting the documents
+   - createdAt - for sorting the documents in ascending order
    - priority - filtering the task documents by status
    - title - searching the task by title (it is not regex based, it only returns the doc matching the exact searching term)
+   - assignedUser -query runs every time a task is assigned
 
 3. Task Allocation:
-   - taskId
-   - assignedUserId
+   - taskId -prevents duplicate task allocation
+   - assignedUserId - prevents duplicate task allocation
 
 
 
