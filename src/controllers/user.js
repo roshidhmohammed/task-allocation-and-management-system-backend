@@ -238,11 +238,44 @@ export const updateWorkingDays = async (req, res, next) => {
 export const allUser = async (req, res, next) => {
   try {
     const user = req.user;
-    const users = await User.find({
+    const {priority} = req.query
+
+        const priorityLevel = {
+        High:{start:7, end:9},
+        Medium:{start:4, end:6},
+        Low:{start:1, end:3}
+    }
+
+    const query = {
       _id: {
         $ne: user._id,
       },
-    });
+
+      skills: {
+        $exists: true,
+        $ne: [],
+      },
+
+      workingDays: {
+        $exists: true,
+        $ne: [],
+      },
+
+      avaialableWorkingHours: {
+        $gt: 0,
+      },
+    };
+
+    if (priority && priorityLevel[priority]) {
+      query.avaialableWorkingHours = {
+        $gte: priorityLevel[priority].start,
+        $lte: priorityLevel[priority].end,
+      };
+    }
+
+
+    const users = await User.find(query)
+
     res.status(201).json({
       success: true,
       message: "user list fetched successfully",

@@ -95,6 +95,7 @@ const taskSchema = new mongoose.Schema(
 taskSchema.index({
     assignedUser:1,
     status:1,
+    dueDate:1,
     createdAt:-1,
     priority:1
 })
