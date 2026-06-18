@@ -39,12 +39,16 @@ npm run dev
 
 # API Documentation
 
+## Auth
+| Method | Endpoint                            | Description                               |
+| ------ | ------------------------------------| ------------------------------------------|
+| POST   | `/api/auth/`                        | Register User                             |
+| POST   | `/api/auth/login`                   | Login User                                |
+| GET    | `/api/auth/check-user-auth`         | checking user authentication              |
+
 ## User
 | Method | Endpoint                            | Description                               |
 | ------ | ------------------------------------| ------------------------------------------|
-| POST   | `/api/user/`                        | Register User                             |
-| POST   | `/api/user/login`                   | Login User                                |
-| GET    | `/api/user/check-user-auth`         | checking user authentication              |
 | GET    | `/api/user/workload`                | getting the user workload info            |
 | PATCH  | `/api/user/update-skills`           | updating the user skills                  |
 | PATCH  | `/api/user/update-available-hours`  | updating the user available hours         |

@@ -132,10 +132,12 @@ export const getAllAllocatedTasks = async (req, res, next) => {
       assignedUser: {
         $exists: true,
       },
-    });
+    }).sort({createdAt:-1})
+
+    console.log(allocatedTasks)
     res.status(200).json({
       success: true,
-      message: "not allocated task fetched",
+      message: "allocated task fetched",
       data: allocatedTasks,
     });
   } catch (error) {
@@ -149,7 +151,8 @@ export const getAllNotAllocatedTasks = async (req, res, next) => {
       assignedUser: {
         $exists: false,
       },
-    });
+    }).sort({createdAt:-1});
+
 
     res.status(200).json({
       success: true,
@@ -160,4 +163,80 @@ export const getAllNotAllocatedTasks = async (req, res, next) => {
     return next(error);
   }
 };
+
+export const allTaskAllocationTransactions = async (req, res, next) => {
+  try {
+const taskAllocations = await TaskAllocation.aggregate([
+  {
+    $lookup: {
+      from: "tasks",
+      localField: "taskId",
+      foreignField: "_id",
+      as: "task",
+    },
+  },
+  {
+    $unwind: "$task",
+  },
+
+  {
+    $lookup: {
+      from: "users",
+      localField: "assignedUserId",
+      foreignField: "_id",
+      as: "user",
+    },
+  },
+  {
+    $unwind: "$user",
+  },
+
+  {
+    $project: {
+      _id: 1,
+
+      allocationId: "$_id",
+
+      taskId: "$task._id",
+      title: "$task.title",
+      description: "$task.description",
+      status: "$task.status",
+      priority: "$task.priority",
+      estimatedHours: "$task.estimatedHours",
+      dueDate: "$task.dueDate",
+      requiredSkills: "$task.requiredSkills",
+
+      userId: "$user._id",
+      fullName: "$user.fullName",
+      email: "$user.email",
+      skills: "$user.skills",
+      avaialableWorkingHours:
+        "$user.avaialableWorkingHours",
+      workingDays: "$user.workingDays",
+
+      status: {
+      $cond: {
+        if: "$isSuccess",
+        then: "Success",
+        else: "Failed"
+      }
+    },
+      reason: 1,
+      createdAt: 1,
+      updatedAt: 1,
+    },
+  },
+]);
+
+
+    res.status(200).json({
+      success: true,
+      message: "not allocated task fetched",
+      data: taskAllocations,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 

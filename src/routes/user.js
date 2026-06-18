@@ -5,9 +5,6 @@ import isUserAuthenticated from "../middlewares/userAuth.js"
 const userRouter =  express.Router()
 
 
-userRouter.post("/", catchAsyncErrors(register))
-userRouter.post("/login", catchAsyncErrors(login))
-userRouter.get("/check-user-auth", isUserAuthenticated, catchAsyncErrors(checkUserAuthentication))
 userRouter.get("/workload", isUserAuthenticated, catchAsyncErrors(workload))
 userRouter.patch("/update-skills", isUserAuthenticated, catchAsyncErrors(updateSkills))
 userRouter.patch("/update-available-hours", isUserAuthenticated, catchAsyncErrors(updateAvailableHoursPerDay))

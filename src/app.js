@@ -5,6 +5,7 @@ import errorHandler from "./middlewares/errorHandler.js";
 import userRouter from "./routes/user.js";
 import taskRouter from "./routes/task.js";
 import taskAllocationRouter from "./routes/taskAllocation.js";
+import userAuthRouter from "./routes/auth.js";
 
 const app = express()
 
@@ -17,6 +18,7 @@ app.use(express.json({limit:"10mb"}))
 
 app.use(cookieParser())
 
+app.use("/api/auth", userAuthRouter)
 app.use("/api/user", userRouter)
 app.use("/api/task", taskRouter)
 app.use("/api/task-allocation", taskAllocationRouter)
